@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Web</title>
+</head>
+
+<body>
+
+    <style>
+        .first-box {
+            display: block;
+            background-color: red;
+            color: white;
+            width: 200px;
+            height: 200px;
+        }
+
+        .second-box {
+            display: block;
+            background-color: blue;
+            color: white;
+            width: 200px;
+            height: 200px;
+        }
+
+        .advertise-box {
+            background-color: yellow;
+            font-size: 42px;
+            border: 10px solid black;
+        }
+
+        /* Für Smartphones */
+        @media screen and (min-width: 768px) {
+            .first-box {
+                display: inline-block;
+                width: 400px;
+            }
+
+            .second-box {
+                display: inline-block;
+                width: 400px;
+            }
+        }
+
+        /* Für Desktop Bildschirme */
+        @media screen and (min-width: 1024px) {
+            .first-box {
+                display: inline-block;
+                width: 45%;
+            }
+
+            .second-box {
+                display: inline-block;
+                width: 45%;
+            }
+        }
+
+        @media print {
+            .advertise-box {
+                display: none;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(111, 110, 110);
+                color: rgb(118, 227, 23);
+            }
+        }
+
+        /* F12 in die Chrome Dev Tools -> strg + shift + p -> 'Rendering' suchen */
+    </style>
+
+    <span class="first-box">A</span>
+    <span class="second-box">B</span>
+
+    <div class="advertise-box">WERBUNG</div>
+</body>
+
+</html>

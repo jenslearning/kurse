@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /* DON'T REPEAT YOURSELF
+        .message {
+            border: 3px solid blue;
+            padding: 10px;
+            color: blue;
+        }
+
+        .message-success {
+            border: 3px solid greenyellow;
+            padding: 10px;
+            color: greenyellow;
+        }
+
+        .message-error {
+            border: 3px solid red;
+            padding: 10px;
+            color: red;
+        }*/
+
+        /* BETTER CODE*/
+        .message,
+        .message-success,
+        .message-error {
+            border: 10px solid blue;
+            padding: 10px;
+            color: grey;
+            font-size: xx-large;
+            font-weight: bold;
+        }
+
+        .message-success {
+            border-color: greenyellow;
+        }
+
+        .message-error {
+            border-color: red;
+        }
+    </style>
+
+    <div class="message">Das ist meine Nachricht</div>
+    <div class="message-success">Das ist meine Nachricht</div>
+    <div class="message-error">Das ist meine Nachricht</div>
+
+</body>
+
+</html>

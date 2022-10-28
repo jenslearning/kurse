@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+    <style>
+        /*Selektoren */
+
+        /*Typ Selektor*/
+        h1 {
+            color: red;
+            background-color: yellow
+        }
+
+        /*Klassen Selektor*/
+        .alert2 {
+            color: beige
+        }
+
+        .alert {
+            color: red;
+        }
+
+        .first-paragraph {
+            color: goldenrod;
+        }
+
+        .layer1 {
+            color: red;
+        }
+
+        .layer2 layer3 {
+            color: blue;
+        }
+    </style>
+
+    <!-- inline style überschreibt den typ-selektor-->
+    <h1 style="color: greenyellow;">Überschrift TEST H1</h1>
+    <div>Hallo Welt!</div>
+
+    <!-- hier kommt das styling aus der Klasse-->
+    <!-- Reihenfolge von alert und alert2 ist entscheidend-->
+    <h1 class="alert alert2">!!!!ALERT!!!!</h1>
+    <p class="first-paragraph">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+    <p class="layer2">
+    <h4 class="layer3">layer3 test</h4>
+    LAYERTEST
+    </p>
+</body>
+
+</html>

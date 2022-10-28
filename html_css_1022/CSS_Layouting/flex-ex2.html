@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Übung</title>
+</head>
+
+<body>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: ;
+            height: 100vh;
+        }
+
+        .header {
+            background-color: rgb(113, 113, 130);
+            color: white;
+            width: 100%;
+            align-self:
+        }
+
+
+        .main {
+            background-color: yellow;
+            width: 50%;
+        }
+
+        .sidebar {
+            background-color: red;
+            color: white;
+            width: 25%;
+        }
+
+        .footer {
+            background-color: green;
+            color: white;
+            width: 100%;
+        }
+
+        .text-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+        }
+    </style>
+
+    <span class="container">
+        <header class="header text-center">header</header>
+        <main class="main text-center">main</main>
+        <aside class="sidebar text-center">sidebar</aside>
+        <footer class="footer text-center">footer</footer>
+    </span>
+
+</body>
+
+</html>

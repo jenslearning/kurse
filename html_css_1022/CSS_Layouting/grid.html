@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Layout Module</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .grid-cell-1 {
+            background-color: blue;
+            color: white;
+            grid-column: 1/2;
+            grid-row: 1/2;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .grid-cell-2 {
+            background-color: red;
+            color: white;
+            grid-column: 3/4;
+            grid-row: 1/2;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .grid-cell-3 {
+            background-color: greenyellow;
+            color: black;
+            grid-column: 2/3;
+            grid-row: 1/2;
+            font-family: monospace;
+        }
+
+        .grid-cell-4 {
+            background-color: aqua;
+            color: black;
+            grid-column: 1/2;
+            grid-row: 2/3;
+        }
+
+        .grid-cell-5 {
+            background-color: blueviolet;
+            color: wheat;
+            grid-column: 2/3;
+            grid-row: 2/3;
+        }
+
+        .grid-cell-6 {
+            background-color: darkred;
+            color: white;
+            grid-column: 3/4;
+            grid-row: 2/3;
+        }
+
+        .grid-cell-7 {
+            background-color: black;
+            color: yellow;
+            grid-column: 2/3;
+            grid-row: 3/4;
+            height: 40px;
+        }
+    </style>
+
+    <span class="container">
+        <span class="grid-cell-1">Grid Cell1</span>
+        <span class="grid-cell-2">Grid Cell1</span>
+        <span class="grid-cell-3">Grid Cell1</span>
+
+        <span class="grid-cell-4">Grid Cell4</span>
+        <span class="grid-cell-5">Grid Cell5</span>
+        <span class="grid-cell-6">Grid Cell6</span>
+
+        <span class="grid-cell-7">Grid Cell7</span>
+    </span>
+
+
+</body>
+
+</html>

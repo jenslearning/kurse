@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Exercise</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            display: grid;
+
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100vw;
+            height: 100vh;
+            font-size: x-large;
+            font-weight: bolder;
+            vertical-align: middle;
+        }
+
+        .header {
+            text-align: center;
+            background-color: blue;
+            grid-column: 1/5;
+            grid-row: 1/2;
+
+        }
+
+        .main {
+            text-align: center;
+            background-color: yellow;
+            grid-column: 3/1;
+            grid-row: 2;
+        }
+
+        .empty {
+            text-align: center;
+            background-color: aliceblue;
+            grid-column: 3/2;
+            grid-row: 2;
+        }
+
+        .aside {
+            text-align: center;
+            background-color: red;
+            grid-column: 4/3;
+            grid-row: 2;
+        }
+
+        .footer {
+            text-align: center;
+            background-color: greenyellow;
+            grid-column: 1/5;
+            grid-row: 3;
+        }
+    </style>
+
+    <span class="container">
+        <header class="header">header</header>
+        <main class="main">main</main>
+        <span class="empty">empty</span>
+        <aside class="aside">sidebar</aside>
+        <footer class="footer">footer</footer>
+    </span>
+
+
+</body>
+
+</html>

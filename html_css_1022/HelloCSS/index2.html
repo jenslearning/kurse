@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /*Typ-Selektor*/
+        h1 {
+            color: greenyellow;
+        }
+
+        /*ID-Selektor*/
+        #red-h1 {
+            color: red;
+        }
+
+        /*Klasen-Selektor*/
+        .blue-h1,
+        .blue-paragraph {
+            color: blue;
+        }
+
+        /*Attribut-Selektor*/
+        [data-foo] {
+            color: orange;
+        }
+
+        [data-color="aqua"] {
+            color: aqua;
+        }
+
+        [data-color2^="brown"] {
+            color: brown;
+        }
+
+        /*Pseudoklassen-Selektor (:)*/
+        /*Elemente anhand von Zuständen auswählen*/
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: greenyellow
+        }
+
+        a:hover {
+            color: blue;
+            text-decoration: underline;
+            font-weight: bolder;
+            cursor: pointer;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            animation-duration: 2s;
+        }
+
+        /*Pseudoelemente-Selektor (::)*/
+        p::first-letter {
+            font-size: xx-large;
+            color: red;
+            font-style: normal;
+        }
+
+        p::after {
+            color: red;
+            content: " -- END of PARAGRAPH --";
+
+        }
+
+        P::first-line {
+            font-style: italic;
+        }
+
+        p::selection {
+            background-color: yellow;
+            color: red;
+        }
+
+        /*Kombinator Selektor*/
+        div.alert {
+            color: fuchsia;
+            font-size: xx-large;
+            font-weight: bold;
+        }
+
+        /*Nachkomme Kombinator*/
+        #inhalt div {
+            background-color: chartreuse;
+            font-size: larger;
+            text-decoration: wavy
+        }
+
+        /*Kind Kombinator
+        #inhalt>div {
+            color: red;
+        }*/
+
+        /*Neben Geschwister
+        h6+span {
+            color: aquamarine;
+        }*/
+
+        /*Allgemeine Geschwister (auf gleicher Höhe)
+        h6~span {
+            color: beige;
+        }*/
+
+        
+    </style>
+
+    <h1 id="red-h1">ID-SELEKTOR</h1>
+    <h1 class="blue-h1">CLASS-SELEKTOR</h1>
+    <h1>TYP-SELEKTOR</h1>
+    <h1 data-foo>ATTRIBUT-SELEKTOR</h1>
+    <h1 data-color="aqua">ATTRIBUT-SELEKTOR with value</h1>
+    <h1 data-color2="brownn-nice">ATTRIBUT-SELEKTOR with "startswith"</h1>
+    <div class="alert">
+        KOMBINATOR SELEKTOR
+    </div>
+    <div id="inhalt">
+        <h5>inhalt überschrift via h5</h5>
+        <div>div-kinder vom inhalt</div>
+        <div>div-kinder vom inhalt</div>
+        <span>
+            <div>div-enkelkinder vom inhalt</div>
+        </span>
+    </div>
+    <div>ich bin kein kind mehr</div>
+    <span>
+        <h6>nebenkinder hierher</h6>
+    </span>
+    <br>
+    <a href="https://www.datev.de">DATEV LINK</a>
+    <p class="blue-paragraph">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+        invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <p>Ipsum Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        tempor
+        invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <p>Dolor Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.</p>
+</body>
+
+
+</html>
