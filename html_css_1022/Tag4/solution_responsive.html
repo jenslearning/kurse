@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox End-Boss</title>
+</head>
+
+<body>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            background-color: #5b9bd5;
+            color: white;
+            border: 1px solid black;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+        }
+
+        .item-a {
+            width: 50%;
+        }
+
+        .item-b {
+            width: 33.33%;
+        }
+
+        .item-c {
+            width: 25%;
+        }
+
+        .item-d-1 {
+            width: 75%;
+        }
+
+        .item-d-2 {
+            width: 25%;
+        }
+
+        .item-e {
+            width: 75%;
+            margin-left: 16%;
+        }
+
+        @media screen and (max-width: 768px) {
+            .item-a {
+                width: 100%;
+            }
+
+            .item-c {
+                width: 50%;
+            }
+
+            .item-e {
+                margin: 0;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .box {
+                width: 100%;
+            }
+
+            .item-e,
+            .item-d-2 {
+                display: none;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <span class="box item-a">A</span>
+        <span class="box item-a">A</span>
+        <span class="box item-b">B</span>
+        <span class="box item-b">B</span>
+        <span class="box item-b">B</span>
+        <span class="box item-c">C</span>
+        <span class="box item-c">C</span>
+        <span class="box item-c">C</span>
+        <span class="box item-c">C</span>
+        <span class="box item-d-1">D</span>
+        <span class="box item-d-2">D</span>
+        <span class="box item-e">E</span>
+    </div>
+
+</body>
+
+</html>

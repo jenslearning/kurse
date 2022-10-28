@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px 0;
+            padding: 20px;
+
+        }
+
+        .fontSetting {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            height: 80px;
+            box-sizing: border-box;
+            border: 1px black solid;
+
+        }
+
+        .boxA {
+            background-color: blue;
+            width: 50%;
+        }
+
+        .boxB {
+            background-color: red;
+            width: 33.33%;
+        }
+
+        .boxC {
+            background-color: yellowgreen;
+            width: 25%;
+        }
+
+        .boxD1 {
+            background-color: green;
+            width: 75%;
+        }
+
+        .boxD2 {
+            background-color: rgba(0, 128, 0, 0.493);
+            width: 25%;
+        }
+
+        .boxE {
+            background-color: cornsilk;
+            color: blue;
+            width: 67%;
+            justify-content: center;
+        }
+    </style>
+
+
+    <div class="container">
+        <div class="boxA fontSetting">A</div>
+        <div class="boxA fontSetting">A</div>
+        <div class="boxB fontSetting">B</div>
+        <div class="boxB fontSetting">B</div>
+        <div class="boxB fontSetting">B</div>
+        <div class="boxC fontSetting">C</div>
+        <div class="boxC fontSetting">C</div>
+        <div class="boxC fontSetting">C</div>
+        <div class="boxC fontSetting">C</div>
+        <div class="boxD1 fontSetting">D</div>
+        <div class="boxD2 fontSetting">D</div>
+        <div class="boxE fontSetting">E</div>
+    </div>
+</body>
+
+</html>
