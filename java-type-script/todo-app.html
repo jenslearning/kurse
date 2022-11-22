@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+</body>
+<h1>MyTodo-App</h1>
+
+<div>
+    <h3>Neue Todo:</h3>
+    <input type="text" id="inputField">
+    <button id="ok-button">OK</button>
+</div>
+
+<div id="edit-area" class="hidden">
+    <h3>Todo bearbeiten:</h3>
+    <input type="text" id="edit-text">
+    <button id="edit-ok-button">OK</button>
+</div>
+
+<ul id="task-list">
+
+</ul>
+
+<script>
+
+    let childLevel = 0;
+
+    var okBtn = document.getElementById('ok-button');
+    var taskList = document.getElementById('task-list');
+
+    okBtn.addEventListener('click', function () {
+        console.log('OK button pressed');
+        var newListElement = document.createElement('li');
+        var textFromInputField = document.getElementById('inputField').value;
+
+        var newInputElement = document.createElement('input');
+        newInputElement.setAttribute('type', 'checkbox');
+
+        newInputElement.addEventListener('change', function () {
+            if (this.checked) {
+                console.log("Checkbox is checked..");
+                newSpanElement.classList.add('strike-out');
+            } else {
+                newSpanElement.classList.remove('strike-out');
+            }
+        });
+
+
+        var newSpanElement = document.createElement('span');
+        newSpanElement.innerText = textFromInputField;
+
+        var newButtonElement = document.createElement('button');
+        newButtonElement.innerText = "X";
+        newButtonElement.addEventListener('click', function () {
+            console.log("delete button pressed");
+            taskList.removeChild(newListElement);
+        });
+
+        var newButtonElementEdit = document.createElement('button');
+        newButtonElementEdit.innerText = "Edit";
+        newButtonElementEdit.addEventListener('click', function () {
+            console.log("edit button pressed");
+            document.getElementById('edit-area').classList.remove('hidden');
+            document.getElementById('edit-area').classList.add('visible');
+            childLevel = 
+            //console.log(newSpanElement.value);
+            //document.getElementById('edit-text').innerText = newSpanElement.value;
+        });
+
+
+
+        taskList.appendChild(newListElement);
+
+        newListElement.appendChild(newInputElement);
+        newListElement.appendChild(newSpanElement);
+        newListElement.appendChild(newButtonElement);
+        newListElement.appendChild(newButtonElementEdit);
+
+        document.getElementById('inputField').value = "";
+    });
+
+
+
+    document.getElementById("edit-ok-button").addEventListener('click', function () {
+        console.log(document.getElementById('edit-text').value);
+        //newSpanElement.innerText = document.getElementById('edit-text').value
+    });
+
+
+    // document.querySelector("#task-list > li:nth-child(3) > span")
+    // document.querySelector("#task-list > li > span")
+    // document.querySelector("#task-list > li:nth-child(2) > span")
+
+
+
+</script>
+
+</html>

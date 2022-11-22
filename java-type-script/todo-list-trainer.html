@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTodoApp</title>
+</head>
+
+<body>
+    <h1>MyTodoApp</h1>
+
+    <div id="newTodoBlock">
+        <h3>Neue Todo:</h3>
+        <input type="text" id="todoTextBox">
+        <button id="addTodoButton">OK</button>
+    </div>
+    <div id="editTodoBlock" hidden>
+        <h3>Todo bearbeiten:</h3>
+        <input type="text" id="updateTodoTextBox">
+        <button id="updateTodoButton">OK</button>
+    </div>
+
+    <ul id="todoListBox"></ul>
+
+    <template id="todoItemTemplate">
+        <li>
+            <input type="checkbox" id="todoCheckBox"> <span id="todoText"></span> <button id="removeTodo">X</button>
+        </li>
+    </template>
+    <style>
+        .todo-done {
+            text-decoration: line-through;
+        }
+    </style>
+    <script>
+        var addTodoButton = document.getElementById("addTodoButton");
+
+        addTodoButton.addEventListener("click", function () {
+
+            var todoItemTemplate = document.getElementById("todoItemTemplate").content.cloneNode(true);
+            todoItemTemplate.querySelector("#todoText").innerText = document.getElementById("todoTextBox").value;
+            todoItemTemplate.querySelector("#removeTodo").addEventListener("click", function () {
+                this.parentNode.remove();
+            });
+
+            var todoCheckBox = todoItemTemplate.querySelector("#todoCheckBox");
+            todoCheckBox.addEventListener("change", function () {
+                if (this.checked) {
+                    this.parentNode.querySelector("#todoText").classList.add("todo-done");
+                } else {
+                    this.parentNode.querySelector("#todoText").classList.remove("todo-done");
+                }
+            });
+
+            todoItemTemplate.querySelector("#todoText").addEventListener("click", function () {
+                document.getElementById("editTodoBlock").hidden = false;
+                document.getElementById("newTodoBlock").hidden = true;
+                document.getElementById("updateTodoTextBox").value = this.innerText;
+                this.setAttribute("data-todo-edit", "");
+            });
+
+            document.getElementById("todoListBox").appendChild(todoItemTemplate);
+            document.getElementById("todoTextBox").value = "";
+        });
+
+        document.getElementById("updateTodoButton").addEventListener("click", function () {
+            document.getElementById("editTodoBlock").hidden = true;
+            document.getElementById("newTodoBlock").hidden = false;
+            var todoText = document.querySelector("[data-todo-edit]");
+            todoText.innerText = document.getElementById("updateTodoTextBox").value;
+            todoText.removeAttribute("data-todo-edit");
+            document.getElementById("updateTodoTextBox").value = "";
+        });
+    </script>
+
+    <!-- 
+        [x] Neue Todo hinzufügen
+        [x] Todo bearbeiten
+        [x] Todo löschen
+        [x] Todo als erledigt markieren (Text soll durchgestrichen werden)
+     -->
+</body>
+
+</html>

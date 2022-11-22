@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTodoApp</title>
+    <link rel="stylesheet" href="todo.css">
+</head>
+
+<body>
+    <h1>MyTodoApp</h1>
+
+    <div>
+        <h3>Neue Todo:</h3>
+        <input type="text" id="todoInput">
+        <button id='addTodo'>OK</button>
+    </div>
+    <div hidden id="changeTodo">
+        <h3>Todo bearbeiten:</h3>
+        <input type="text" id="changeTodoInput">
+        <button id='changeTodoButton'>OK</button>
+    </div>
+
+    <template id="myTemplate">
+        <li>
+            <input type="checkbox"> <span>Lorem ipsum</span> <button>X</button>
+        </li>
+    </template>
+
+    <ul id="list">
+        <!-- <li>
+            <input type="checkbox"> <span>Lorem ipsum</span> <button>X</button>
+        </li> -->
+    </ul>
+
+    <!-- 
+        - Neue Todo hinzufügen
+        - Todo bearbeiten
+        - Todo löschen
+        - Todo als erledigt markieren (Text soll durchgestrichen werden)
+     -->
+    <script>
+        let liToChange;
+
+        let todoInput = document.querySelector('#todoInput');
+
+        let template = document.querySelector("#myTemplate").content.cloneNode(true);
+
+        let list = document.querySelector('#list');
+
+        let btnAdd = document.querySelector('#addTodo');
+        btnAdd.addEventListener('click', function () {
+            let newLI = document.createElement('li');
+            newLI.innerHTML = `<input type="checkbox"> <span>${todoInput.value}</span> <button>X</button>`;
+
+            //let tempLI = template.querySelector("li");
+            //console.dir(tempLI);
+            //let newLI = Object.assign({}, tempLI);
+            //console.dir(newLI);
+            //let span = newLI.querySelector('span');
+            //span.innerText = todoInput.value;
+            chkBox = newLI.querySelector('input[type=checkbox]');
+            //console.dir(chkBox);
+            chkBox.addEventListener('change', function () {
+                let span = this.parentElement.querySelector('span');
+                span.classList.toggle('strike');
+            });
+
+            let span = newLI.querySelector('span');
+            span.addEventListener('click', function () {
+                let changeDiv = document.querySelector('#changeTodo');
+                changeDiv.hidden = false;
+                liToChange = this.parentElement;
+
+                document.querySelector('#changeTodoInput').value = span.innerText;
+            });
+
+            let removeBtn = newLI.querySelector('button');
+            removeBtn.addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+
+            list.appendChild(newLI);
+            todoInput.value = "";
+        });
+
+        let btnChange = document.querySelector("#changeTodoButton");
+        btnChange.addEventListener('click', function () {
+            let changeInput = document.querySelector('#changeTodoInput');
+            let newText = changeInput.value;
+            changeInput.value = "";
+            //console.dir(liToChange);
+            liToChange.querySelector('span').innerText = newText;
+
+            let changeDiv = document.querySelector('#changeTodo');
+            changeDiv.hidden = true;
+        });
+    </script>
+
+</body>
+
+</html>

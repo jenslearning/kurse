@@ -1,0 +1,17 @@
+.myStyle {
+    background-color: red;
+    border: 1px red solid;
+} 
+
+.strike-out {
+    text-decoration: line-through;
+}
+
+.visible{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+

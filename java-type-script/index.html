@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Hello JavaScript</h1>
+    <input type="text" id="userNameTextBox">
+    <button id="button-one">Hallo Jens</button><br>
+    <button id="reset">Reset</button>
+    <button id="bg-red">Red</button><br><br>
+    <input type="text" id="tb-user-name">
+    <button id="say-myname">SAY-MY-NAME</button>
+    <script>
+        var headers = document.getElementsByTagName('h1');
+        console.log(headers);
+
+        var myButton = document.getElementById('button-one');
+        var myResetBtn = document.getElementById('reset');
+        var mBgBtn = document.getElementById('bg-red');
+
+        var btnSayMyName = document.getElementById('say-myname');
+        var tbSayMyName = document.getElementById('tb-user-name');
+
+        myButton.addEventListener('click', function () {
+            headers[0].innerText = 'BUTTON-PRESSED and TEXT HAS CHANGED';
+        });
+
+        myResetBtn.addEventListener('click', function () {
+            headers[0].innerText = 'Hallo Jens';
+            headers[0].className = "";
+            document.querySelector("#userNameTextBox").className = "";
+        });
+
+        mBgBtn.addEventListener('click', function () {
+            headers[0].className = "myStyle";
+            document.querySelector("#userNameTextBox").className = "myStyle";
+        });
+
+
+
+        // <img />
+        var image = document.createElement('img');
+
+        // <img src="ano.png" />
+        image.setAttribute('src', 'hund.png');
+
+        // <img src="ano.png" width="300" />
+        image.setAttribute('width', '200');
+        image.setAttribute('id', 'hund-image')
+
+        // <body>
+        // ..
+        //     <img src="ano.png" width="300" />
+        document.body.appendChild(image);
+
+        var imageHund = document.getElementById('hund-image');
+
+        btnSayMyName.addEventListener('click', function () {
+            tbSayMyName.value = "WOOOF";
+            image.classList.add('myStyle');
+
+        });
+
+    </script>
+
+</body>
+
+</html>
