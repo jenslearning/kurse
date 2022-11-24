@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTodoApp</title>
+</head>
+
+<body>
+    <h1>MyTodoApp</h1>
+
+    <div>
+        <h3>Neue Todo:</h3>
+        <input type="text" id="todoInput">
+        <button id='addTodo'>OK</button>
+    </div>
+    <div hidden id="changeTodo">
+        <h3>Todo bearbeiten:</h3>
+        <input type="text" id="changeTodoInput">
+        <button id='changeTodoButton'>OK</button>
+    </div>
+
+    <ul id="list"></ul>
+
+    <!-- 
+        - Neue Todo hinzufügen
+        - Todo bearbeiten
+        - Todo löschen
+        - Todo als erledigt markieren (Text soll durchgestrichen werden)
+     -->
+    <script>
+        let liToChange;
+
+        let btnAdd = document.querySelector('#addTodo');
+        btnAdd.addEventListener('click', function () {
+
+            let todoInput = document.querySelector('#todoInput');
+
+            let newLI = document.createElement('li');
+            newLI.innerHTML = `<input type="checkbox"> <span>${todoInput.value}</span> <button>X</button>`;
+
+            newLI.querySelector('input[type=checkbox]').addEventListener('change', function () {
+                this.parentElement.querySelector('span').classList.toggle('strike');
+            });
+
+            newLI.querySelector('span').addEventListener('click', function () {
+                document.querySelector('#changeTodo').hidden = false;
+                document.querySelector('#changeTodoInput').value = this.innerText;
+                liToChange = this.parentElement;
+            });
+
+            newLI.querySelector('button').addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+
+            document.querySelector('#list').appendChild(newLI);
+            todoInput.value = "";
+        });
+
+        document.querySelector("#changeTodoButton").addEventListener('click', function () {
+            let changeInput = document.querySelector('#changeTodoInput');
+            liToChange.querySelector('span').innerText = changeInput.value;
+            changeInput.value = "";
+
+            document.querySelector('#changeTodo').hidden = true;
+        });
+    </script>
+
+    <style>
+        .strike {
+            text-decoration: line-through;
+        }
+    </style>
+</body>
+
+</html> 
