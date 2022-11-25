@@ -1,0 +1,12 @@
+{
+  "name": "greeting",
+  "version": "1.0.0",
+  "description": "the new greeting module",
+  "main": "greeting.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
