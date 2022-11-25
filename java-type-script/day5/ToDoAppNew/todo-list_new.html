@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello JavaScript</title>
+</head>
+<body>
+<h1>Hello JavaScript!</h1>
+
+<input type="text" id="userNameTextBox">
+<button id="sayHelloButton">Sage hallo</button>
+
+<div id="container"></div>
+
+<template id="myTemplate">
+    <h3>wuff wuff</h3>
+</template>
+
+<style>
+    .red {
+        color: red;
+    }
+</style>
+<script>
+    var headers = document.getElementsByTagName('h1');
+
+    var sayHelloButton = document.getElementById('sayHelloButton');
+    sayHelloButton.addEventListener('click', function() {
+        var userNameTextBox = document.querySelector("#userNameTextBox");
+        var userName = userNameTextBox.value;
+
+        headers[0].innerText = "Hallo " + userName + ", ich bin JavaScript!";
+        headers[0].classList.add('red');
+        userNameTextBox.value = "";
+
+        // <img />
+        var image = document.createElement('img');
+
+        // <img src="ano.png" />
+        image.setAttribute('src', 'ano.png');
+
+        // <img src="ano.png" width="300" />
+        image.setAttribute('width', '300');
+
+        // <body>
+        // ..
+        //     <img src="ano.png" width="300" />
+        document.getElementById("container").appendChild(image);
+
+        var h3headers = document.getElementsByTagName("h3");
+        console.log(h3headers);
+
+        var template = document.getElementById("myTemplate").content.cloneNode(true);
+        console.log(template.querySelectorAll("h3"));
+    });
+</script>
+</body>
+</html>

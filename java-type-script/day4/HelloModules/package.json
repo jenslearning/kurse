@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "start": "node main.js",
-    "jens": "node main.js"
+    "jens": "node main.js",
+    "build": "tsc -p . --watch"
   },
   "keywords": [],
   "author": "",

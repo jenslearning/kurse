@@ -1,14 +1,13 @@
-const { Calculator, person } = require('calculator');
-
+// CommonJS
+// import * as  Greeting from 'greeting';
+// const greeting = new Greeting();
+// console.log(greeting.sayHello('Jens'));
+// SystemJS
+// UMD
+// ...
+import { Calculator } from "./calculator.js";
+//import { Calculator } from "./calculator"; (for use with //"module": "commonjs", in tsconfig.json
 const calculator = new Calculator();
-console.log(calculator.add(19, 2));
-
-console.log(person);
-console.log('Hello ' + person.name);
-console.log(person.age);
-console.log(person.city);
-
-const Greeting = require('greeting');
-
-const greeting = new Greeting();
-console.log(greeting.sayHello('Jens'));
+const result = calculator.add(9, 6);
+console.log(result);
+const message = "THIS IS A MESSAGE";
