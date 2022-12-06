@@ -1,0 +1,35 @@
+<div *ngIf="!isEditMode">
+  <h3>Neuer Film:</h3>
+  <input type="text" [(ngModel)]="movieTitle" />
+  <label for="kategorie">Kategorie:</label>
+  <select id="kategorie" name="kategorie" [(ngModel)]="selectedCategory" >
+    <option value="Horror" selected >Horror</option>
+    <option value="Love">Love</option>
+    <option value="Thriller">Thriller</option>
+    <option value="Drama">Drama</option>
+  </select>
+  <button (click)="addMovie()">OK</button>
+</div>
+
+<div *ngIf="isEditMode">
+  <h3>Film bearbeiten:</h3>
+  <input type="text" [(ngModel)]="movieTitle" />
+  <label for="kategorie">Kategorie:</label>
+  <select id="kategorie" name="kategorie" [(ngModel)]="selectedCategory" >
+    <option value="Horror">Horror</option>
+    <option value="Love">Love</option>
+    <option value="Thriller">Thriller</option>
+    <option value="Drama">Drama</option>
+  </select>
+  <button (click)="updateMovie()">OK</button>
+</div>
+
+<ul>
+  <li *ngFor="let movie of movieList; let i = index">
+    <input type="checkbox" [(ngModel)]="movie.isWatched">
+    <span (click)="editMovie(i)" [class]="movieStyles(movie, i)">
+      {{ movie.text }} {{ movie.kategorie }}
+    </span>
+    <button (click)="deleteMovie(i)">💥</button>
+  </li>
+</ul>

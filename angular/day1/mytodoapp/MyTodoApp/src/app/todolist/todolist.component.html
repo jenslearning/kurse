@@ -1,0 +1,20 @@
+<div *ngIf="!isEditMode">
+  <h3>Neue Todo:</h3>
+  <input type="text" [(ngModel)]="todoText" />
+  <button (click)="addTodo()">OK</button>
+</div>
+<div *ngIf="isEditMode">
+  <h3>Todo bearbeiten:</h3>
+  <input type="text" [(ngModel)]="todoText" />
+  <button (click)="updateTodo()">OK</button>
+</div>
+
+<ul>
+  <li *ngFor="let todo of todos; let i = index">
+    <input type="checkbox" [(ngModel)]="todo.isCompleted">
+    <span (click)="editTodo(i)" [class]="todoStyles(todo, i)">
+      {{ todo.text }}
+    </span>
+    <button (click)="deleteTodo(i)">💥</button>
+  </li>
+</ul>

@@ -10,12 +10,6 @@
       "url": "http://localhost:4200/"
     },
     {
-      "name": "ng serve (Attach)",
-      "type": "pwa-chrome",
-      "request": "launch",
-      "url": "http://localhost:4200/"
-    },
-    {
       "name": "ng test",
       "type": "chrome",
       "request": "launch",
