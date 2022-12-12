@@ -1,0 +1,13 @@
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid #ec4946;
+}
+
+.ng-valid[required] {
+  border-left: 5px solid #42A948;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+  font-size: xxx-large;
+}

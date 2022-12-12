@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-move-list',
@@ -10,7 +11,14 @@ export class MoveListComponent {
   movieList: Movie[] = [];
   isEditMode = false;
   updateMovieIndex = -1;
-   selectedCategory: string = '';
+  selectedCategory: string = '';
+
+  constructor(private router: Router) {
+  }
+
+  goToAboutMe(){
+    this.router.navigate(['about']);
+  }
 
   addMovie() {
     if (!(this.movieTitle === '')) {
@@ -29,6 +37,7 @@ export class MoveListComponent {
 
   updateMovie() {
     console.log("UPDATE item nr:  " + this.updateMovieIndex);
+
     this.movieList[this.updateMovieIndex].text = this.movieTitle;
     this.movieList[this.updateMovieIndex].kategorie = this.selectedCategory;
     this.isEditMode = false;
@@ -60,7 +69,7 @@ export class MoveListComponent {
   }
 }
 
-interface Movie {
+export interface Movie {
   text: string;
   isWatched: boolean;
   kategorie: string

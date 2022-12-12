@@ -1,64 +1,78 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ChucknorrisService} from "../chucknorris.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.scss'],
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit {
   todoText = '';
-  todos: Todo[] = [];
+  todos: Todo[] = [
+    {text: 'Garten aufräumen', isCompleted: false},
+    {text: 'Garage aufräumen', isCompleted: false},
+    {text: 'Dachboden kündigen', isCompleted: false},
+    {text: 'Bar putzen', isCompleted: false}
+  ];
   isEditMode = false;
   updateTodoIndex = -1;
+  jokeText = '';
+
+  constructor(
+    private chucknorrisService: ChucknorrisService,
+    private router: Router
+  ) {
+  }
+
+  ngOnInit() {
+    this.chucknorrisService.reloadJokeEvent.subscribe(() => {
+      this.chucknorrisService.reloadJoke().subscribe((joke) => {
+        this.jokeText = joke.value;
+      });
+
+    });
+  }
+
 
   addTodo() {
     if (!(this.todoText === '')) {
-      console.log("NEW item");
       const todo: Todo = {
         text: this.todoText,
         isCompleted: false,
-      }
+      };
       this.todos.push(todo);
       this.todoText = '';
-    } else {
-      console.log("no text for new item");
     }
+
+  }
+
+  editTodo(indexTodo: number) {
+    this.isEditMode = true;
+    this.todoText = this.todos[indexTodo].text;
+    this.updateTodoIndex = indexTodo;
   }
 
   updateTodo() {
-    console.log("UPDATE item nr:  " + this.updateTodoIndex);
     this.todos[this.updateTodoIndex].text = this.todoText;
     this.isEditMode = false;
     this.todoText = '';
     this.updateTodoIndex = -1;
   }
 
-  editTodo(indexTodo: number) {
-    console.log("EDIT item nr:  " + indexTodo);
-    this.isEditMode = true;
-    this.todoText = this.todos[indexTodo].text;
-    this.updateTodoIndex = indexTodo;
+  deleteTodo(todoIndex: number) {
+    this.todos.splice(todoIndex, 1);
+    this.chucknorrisService.reloadJoke().subscribe(joke => {
+      this.jokeText = joke.value
+    })
   }
 
-  deleteTodo(indexTodo: number) {
-    console.log("DELETE item nr:  " + indexTodo);
-    this.isEditMode = false;
-    this.updateTodoIndex = -1;
-    this.todoText = '';
-    this.todos.splice(indexTodo, 1);
-  }
-
-  todoStyles(todo: Todo, todoIndex: number) {
-    return {
-      'todo--editing': todoIndex === this.updateTodoIndex,
-      'todo--completed': todo.isCompleted
-    }
+  goToAboutMe() {
+    this.router.navigate(['about']);
   }
 }
 
-interface Todo {
+export interface Todo {
   text: string;
   isCompleted: boolean;
 }
-
-

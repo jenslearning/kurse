@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let todo of todos; let i = index">
+    <input type="checkbox" [(ngModel)]="todo.isCompleted" />
+    <!-- <span (click)="editTodo(i)" [class]="todoStyles(todo, i)" [innerHTML]="todo.text | markText:'blub'"> -->
+    <span (click)="editTodo(i)" [class]="todoStyles(todo, i)" appMark="BAR" [text]="todo.text | myUpperCase">
+    </span>
+    <button (click)="deleteTodo(i)">X</button>
+  </li>
+</ul>

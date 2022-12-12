@@ -1,3 +1,14 @@
 <h1>{{ title }}</h1>
 
-<app-todolist></app-todolist>
+<!-- <app-todolist></app-todolist> -->
+
+<a routerLink="" routerLinkActive="menuHighlight" [routerLinkActiveOptions]="{ exact: true }">Todo Liste</a> ||
+<a routerLink="about" routerLinkActive="menuHighlight">About me</a>
+
+
+<hr>
+<button (click)="chucknorrisService.reloadJokeEvent.next()">
+  Lade Joke
+</button>
+
+<router-outlet></router-outlet>

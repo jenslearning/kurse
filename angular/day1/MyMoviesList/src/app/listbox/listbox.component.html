@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let movie of movieList; let i = index">
+    <input type="checkbox" [(ngModel)]="movie.isWatched">
+    <span (click)="editMovie(i)" [class]="movieStyles(movie, i)">
+      {{ movie.text }} {{ movie.kategorie }}
+    </span>
+    <button (click)="deleteMovie(i)">💥</button>
+  </li>
+</ul>
+
+<h3>{{jokeText}}</h3>

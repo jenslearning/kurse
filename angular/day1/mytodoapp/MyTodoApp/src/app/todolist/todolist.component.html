@@ -9,12 +9,15 @@
   <button (click)="updateTodo()">OK</button>
 </div>
 
-<ul>
-  <li *ngFor="let todo of todos; let i = index">
-    <input type="checkbox" [(ngModel)]="todo.isCompleted">
-    <span (click)="editTodo(i)" [class]="todoStyles(todo, i)">
-      {{ todo.text }}
-    </span>
-    <button (click)="deleteTodo(i)">💥</button>
-  </li>
-</ul>
+<app-listbox
+  [todos]="todos"
+  [updateTodoIndex]="updateTodoIndex"
+  (editTodoClick)="editTodo($event)"
+  (deleteTodoClick)="deleteTodo($event)"
+></app-listbox>
+
+
+<button (click)="goToAboutMe()">About Me</button>
+<hr>
+<h3>{{jokeText}}</h3>
+<!--appAutoInputWidth="400" -->
