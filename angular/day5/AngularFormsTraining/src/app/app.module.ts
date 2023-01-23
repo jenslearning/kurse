@@ -7,12 +7,16 @@ import { TemplateDrivenComponent } from './template-driven/template-driven.compo
 
 
 import { FormsModule } from '@angular/forms';
+import { ForbiddenValidatorDirective } from './forbidden-validator.directive';
+import { IdentityRevealedValidatorDirective } from './identity-revealed-validator.directive';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TemplateDrivenComponent
+    TemplateDrivenComponent,
+    ForbiddenValidatorDirective,
+    IdentityRevealedValidatorDirective
   ],
   imports: [
     BrowserModule,

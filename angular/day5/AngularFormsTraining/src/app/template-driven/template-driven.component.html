@@ -2,34 +2,75 @@
   <h1>Template-Driven Forms</h1>
   <h3>Person Form</h3>
 
-  <form #personForm="ngForm" (ngSubmit)="onSubmit()">
+  <form #personForm="ngForm" (ngSubmit)="onSubmit()" appIdentityRevealedValidator=false>
+
     <div class="form-group">
       <label for="name">Name</label>
-      <input #name="ngModel" type="text" class="form-control" id="name" name="name" required minlength="4"
-             [(ngModel)]="person.name">
-    </div>
-    <div
-      [hidden]="name.untouched || name.valid" class="alert alert-danger">
-      Name is required!
+      <input
+        #name="ngModel"
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        required minlength="4"
+        [(ngModel)]="person.name"
+        appForbiddenValidator="terminator">
+
+      <div *ngIf="personForm.errors?.['identityRevealed']" class="alert alert-danger">
+        Age cannot match with name.
+      </div>
+
+      <div
+        [hidden]="name.untouched || name.valid"
+        class="alert alert-danger">
+        Name is required!
+      </div>
+
+      <div
+        *ngIf="name.errors?.['minlength']"
+        class="alert alert-danger">
+        Name must be at least {{ name.errors?.['minlength']?.requiredLength }}.
+      </div>
+
+
+      <div
+        *ngIf="name.errors?.['forbiddenName']"
+        class="alert alert-danger">
+        Name with {{ name.errors?.['forbiddenName'] }} is not allowed.
+      </div>
     </div>
 
-    <div *ngIf="name.errors?.['minlength']" class="alert alert-danger">
-      Name must be at least {{ name.errors?.['minlength']?.requiredLength }}.
-    </div>
 
     <div class="form-group">
       <label for="company">Company</label>
-      <input type="text" class="form-control" id="company" name="company" required [(ngModel)]="person.company">
+      <input
+        type="text"
+        class="form-control"
+        id="company"
+        name="company"
+        required [(ngModel)]="person.company">
     </div>
 
     <div class="form-group">
       <label for="age">Age</label>
-      <input type="text" class="form-control" id="age" name="age" [(ngModel)]="person.age">
+      <input
+        type="text"
+        class="form-control"
+        id="age"
+        name="age" [(ngModel)]="person.age">
+
+      <div *ngIf="personForm.errors?.['identityRevealed']" class="alert alert-danger">
+        Age cannot match with name.
+      </div>
     </div>
 
     <div class="form-group">
       <label for="power">Power</label>
-      <select class="form-control" id="power" required name="power" [(ngModel)]="person.power">
+      <select
+        class="form-control"
+        id="power"
+        required name="power"
+        [(ngModel)]="person.power">
         <option *ngFor="let power of powers" [value]="power">{{ power }}</option>
       </select>
     </div>
