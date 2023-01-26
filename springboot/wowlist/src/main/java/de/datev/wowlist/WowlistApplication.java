@@ -10,4 +10,5 @@ public class WowlistApplication {
 		SpringApplication.run(WowlistApplication.class, args);
 	}
 
+
 }
