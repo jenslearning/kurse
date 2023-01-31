@@ -24,10 +24,21 @@ public class TodoController {
         return todoService.getTodos();
     }
 
+    @GetMapping("/todos/query")
+    public List getTodoByDescription(@RequestParam("description") String description) {
+
+        return todoService.getTodoByDescription(description);
+    }
+
     @PostMapping("/todos")
     @ResponseStatus(HttpStatus.CREATED)
     public Todo createTodos(@RequestBody Todo todo) {
         return todoService.createTodo(todo);
+    }
+
+    @PostMapping("todos/{id}/subtask")
+    public Subtask createSubTask(@PathVariable("id") UUID id, @RequestBody Subtask subTask) {
+        
     }
 
     @PutMapping("/todos/{id}")

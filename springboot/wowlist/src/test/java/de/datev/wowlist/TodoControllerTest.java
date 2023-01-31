@@ -9,13 +9,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -25,77 +26,101 @@ public class TodoControllerTest {
     MockMvc mockMvc;
 
     @Autowired
-    TodoService todoService;
-
-    @BeforeEach
-    public void deleteTodos() {
-        todoService.setTodoList(new ArrayList<>());
-    }
-
-    @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    TodoRepository todoRepository;
+
+    @BeforeEach
+    public void cleanDatabase() {
+        todoRepository.deleteAll();
+    }
+
     @Test
-    public void getAllTodos() throws Exception {
-        mockMvc.perform(get("/todos"))
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(status().isOk()); // check that status code is 200/ok
+    public void getAllTodos_returnsAllTodos() throws Exception {
+        getAllTodos()
+                .andExpect(jsonPath("$").isEmpty());
     }
 
     @Test
     public void createTodo() throws Exception {
-        // expect no todos
-        mockMvc.perform(get("/todos"))
-                .andExpect(status().isOk()) // check that status code is 200/ok
-                .andExpect(jsonPath("$", Matchers.hasSize(0))); //check that array has size 1
+        // expect that there is one todo
+        getAllTodos()
+                .andExpect(jsonPath("$", Matchers.hasSize(0)));
 
-        // create one todo
-        mockMvc.perform(post("/todos").content("{\"description\": \"TODO TEST createTodo\"}").contentType(MediaType.APPLICATION_JSON)) //MediaType.APPLICATION_JSON damit kein 415 kommt
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.description", Matchers.equalTo("TODO TEST createTodo")));
+        // create one
+        createTodoWithDescription();
 
-        // expect two todos
-        mockMvc.perform(get("/todos"))
+        // expect two
+        getAllTodos()
                 .andExpect(jsonPath("$", Matchers.hasSize(1)));
     }
 
     @Test
     public void changeTodo() throws Exception {
-        // create one todo
-        // get the complete response og this call into "response"
-        String response = mockMvc.perform(post("/todos")
-                        .content("{\"description\": \"TODO TEST updateTodo\"}")
-                        .contentType(MediaType.APPLICATION_JSON)) //MediaType.APPLICATION_JSON damit kein 415 kommt
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.description", Matchers.equalTo("TODO TEST updateTodo")))
-                .andReturn().getResponse().getContentAsString();
+        // create one
+        String response = createTodoWithDescription();
 
-        //Objectmapper maps the stream into readable Todo Object (so that we can get the ID)
         Todo createdTodo = mapper.readValue(response, Todo.class);
 
-        mockMvc.perform(put("/todos/" + createdTodo.getId()).content("{\"description\": \"TODO TEST updateTodo - UPDATED\"}")
+        changeTodoWithId(createdTodo);
+    }
+
+    private void changeTodoWithId(Todo createdTodo) throws Exception {
+        mockMvc.perform(put("/todos/" + createdTodo.getId()).content("{ \"description\": \"Kaffee kochen\"}")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleteTodo() throws Exception {
-        // create one todo
-        // get the complete response og this call into "response"
-        String response = mockMvc.perform(post("/todos")
-                        .content("{\"description\": \"TODO TEST updateTodo\"}")
-                        .contentType(MediaType.APPLICATION_JSON)) //MediaType.APPLICATION_JSON damit kein 415 kommt
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.description", Matchers.equalTo("TODO TEST updateTodo")))
-                .andReturn().getResponse().getContentAsString();
+        // create one
+        String response = createTodoWithDescription();
 
-        //Objectmapper maps the stream into readable Todo Object (so that we can get the ID)
         Todo createdTodo = mapper.readValue(response, Todo.class);
 
-        mockMvc.perform(delete("/todos/" + createdTodo.getId()))
+        mockMvc.perform(delete("/todos/" + createdTodo.getId())).andExpect(status().isOk());
+    }
+
+    @Test
+    public void getTodoByDescription() throws Exception {
+        String response = createTodoWithDescription();
+
+        Todo createdTodo = mapper.readValue(response, Todo.class);
+        mockMvc.perform(get("/todos/query").queryParam("description", createdTodo.getDescription())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].description", Matchers.equalTo("Tee kochen")))
+                .andExpect(jsonPath("$", Matchers.hasSize(1)));
+    }
+
+    @Test
+    public void createSubTask() throws Exception {
+        String response = createTodoWithDescription();
+
+        Todo createdTodo = mapper.readValue(response, Todo.class);
+        UUID id = createdTodo.getId();
+        mockMvc.perform(post("/todos/" + id + "/subtask")
+                        .content("{ \"description\": \"SUBTASK I\"}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subtask[0].id").exists())
+                .andExpect(jsonPath("$.subtask[0].description", Matchers.equalTo("SUBTASK I")));
+    }
+
+    private ResultActions getAllTodos() throws Exception {
+        return mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk());
     }
+
+    private String createTodoWithDescription() throws Exception {
+        return mockMvc.perform(post("/todos")
+                        .content("{ \"description\": \"Tee kochen\"}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.description", Matchers.equalTo("Tee kochen")))
+                .andReturn().getResponse().getContentAsString();
+    }
+
+
 }

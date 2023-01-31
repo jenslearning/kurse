@@ -2,69 +2,55 @@ package de.datev.wowlist;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
 @Service
 public class TodoService {
 
-    List<Todo> todoList = new ArrayList();
+    private TodoRepository todoRepository;
+
+    @Autowired
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
     Logger logger = LoggerFactory.getLogger(TodoController.class);
 
     public List getTodos() {
-        logger.info("LOG: Received request to return all todos, returning " + todoList.size() + " todo(s).");
-        return todoList;
+        logger.info("LOG: Received request to return all todos, returning " + todoRepository.count() + " todo(s).");
+        return todoRepository.findAll();
     }
 
     public Todo createTodo(Todo todo) {
-
         Todo newTodo = new Todo(todo.getDescription(), todo.isDone());
-
-        todoList.add(newTodo);
         logger.info("LOG: added " + todo.getDescription());
-        return todo;
+        return todoRepository.save(newTodo);
     }
 
-    public List<Todo> getTodoList() {
-        return todoList;
-    }
 
-    public void setTodoList(List<Todo> todoList) {
-        this.todoList = todoList;
+    public void setTodoRepository(List<Todo> todoList) {
+        this.todoRepository = todoRepository;
     }
-
-//    public Todo updateTodo(Todo changedTodo, UUID id) {
-//
-//        for (Todo todoTemp : todoList) {
-//            if (todoTemp.getId().equals(id)) {
-//                todoTemp.setDescription(changedTodo.getDescription());
-//                return todoTemp;
-//            }
-//        }
-//        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//    }
 
     public Todo updateTodo(UUID id, Todo updatedTodo) {
-        for (Todo todo : todoList) {
-            if (todo.getId().equals(id)) {
-                todo.setDescription(updatedTodo.getDescription());
-            }
-        }
-        return updatedTodo;
+        Todo todoToChange = todoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        todoToChange.setDescription(updatedTodo.getDescription());
+        return  todoRepository.findById(id).get();
     }
 
     public void deleteTodo(UUID id) {
-        todoList.removeIf((todo) -> todo.getId().equals(id));
+        todoRepository.deleteById(id);
+    }
+
+    public List<Todo> getTodoByDescription(String description) {
+        return todoRepository.findByDescriptionLikeIgnoreCase(description);
     }
 }
-//        for (Todo todo : todoList) {
-//            if (todo.getId().equals(id)) {
-//                todoList.remove(todo);
-//            }
-//        }
-//}
-//}
