@@ -36,10 +36,6 @@ public class TodoController {
         return todoService.createTodo(todo);
     }
 
-    @PostMapping("todos/{id}/subtask")
-    public Subtask createSubTask(@PathVariable("id") UUID id, @RequestBody Subtask subTask) {
-        
-    }
 
     @PutMapping("/todos/{id}")
     public Todo updateTodos(@RequestBody Todo todo, @PathVariable("id") UUID id) {
@@ -47,9 +43,13 @@ public class TodoController {
     }
 
     @DeleteMapping("/todos/{id}")
-    public void deeleteTodos(@PathVariable("id") UUID id) {
+    public void deleteTodos(@PathVariable("id") UUID id) {
         todoService.deleteTodo(id);
     }
 
-
+    @PostMapping("/todos/{todoId}/subtasks")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createSubtask(@PathVariable UUID todoId, @RequestBody Subtask subtask) {
+        todoService.createSubtask(todoId, subtask);
+    }
 }

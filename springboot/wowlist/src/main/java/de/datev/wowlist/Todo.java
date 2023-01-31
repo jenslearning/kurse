@@ -1,11 +1,9 @@
 package de.datev.wowlist;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,13 +13,15 @@ public class Todo {
     @Column
     @NotBlank
     private String description;
+
     @Column
     private boolean done;
+
     @Id
     private UUID id;
 
-    @OneToMany(mappedBy = "todo") // one todo can have multiple subtasks
-    private List<Subtask> subtasks;
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL) // one todo can have multiple subtasks
+    private List<Subtask> subtasks = new ArrayList<>();
 
     public Todo(String description, boolean done) {
         this.description = description;
@@ -58,5 +58,8 @@ public class Todo {
         this.id = id;
     }
 
-
+    public void addSubtask(Subtask subtask) {
+        this.subtasks.add(subtask);
+        subtask.setTodo(this);
+    }
 }

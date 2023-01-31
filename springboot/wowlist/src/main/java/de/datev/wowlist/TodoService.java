@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -35,7 +34,6 @@ public class TodoService {
         return todoRepository.save(newTodo);
     }
 
-
     public void setTodoRepository(List<Todo> todoList) {
         this.todoRepository = todoRepository;
     }
@@ -53,4 +51,16 @@ public class TodoService {
     public List<Todo> getTodoByDescription(String description) {
         return todoRepository.findByDescriptionLikeIgnoreCase(description);
     }
+
+    public void createSubtask(UUID todoId, Subtask subtask) {
+        // 1. find the task, that the subtask should be added to
+        Todo todoToChange = todoRepository.findById(todoId).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+
+        // 2. add the subtask
+        todoToChange.addSubtask(subtask);
+
+        // 3. save the todo from 1.
+        todoRepository.save(todoToChange);
+    }
+
 }

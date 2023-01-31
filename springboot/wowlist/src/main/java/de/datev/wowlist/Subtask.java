@@ -1,9 +1,6 @@
 package de.datev.wowlist;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -16,14 +13,27 @@ public class Subtask {
     String description;
 
     @ManyToOne
+    @JoinColumn(name = "todo_id")
     private Todo todo;
+
 
     public Subtask() {
         this.id = UUID.randomUUID();
     }
 
-    public Subtask(String description) {
-        this.id = UUID.randomUUID();
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Todo getTodo() {
+        return todo;
+    }
+
+    public void setTodo(Todo todo) {
+        this.todo = todo;
     }
 }
