@@ -63,4 +63,11 @@ public class TodoService {
         todoRepository.save(todoToChange);
     }
 
+    public Todo createNote(UUID todoId, Note note) {
+        Todo todoToChange = todoRepository.findById(todoId).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+
+        todoToChange.addNote(note);
+
+        return todoRepository.save(todoToChange);
+    }
 }

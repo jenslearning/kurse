@@ -107,6 +107,20 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.subtask[0].description", Matchers.equalTo("SUBTASK I")));
     }
 
+    @Test
+    public void createNote() throws Exception {
+        String response = createTodoWithDescription();
+
+        Todo createdTodo = mapper.readValue(response, Todo.class);
+
+        UUID id = createdTodo.getId();
+
+        mockMvc.perform(post("/todos/" + id + "/notes")
+                        .content("{ \"description\": \"NOTE I\"}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
     private ResultActions getAllTodos() throws Exception {
         return mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk());
@@ -121,6 +135,4 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$.description", Matchers.equalTo("Tee kochen")))
                 .andReturn().getResponse().getContentAsString();
     }
-
-
 }

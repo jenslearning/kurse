@@ -19,6 +19,8 @@ public class TodoController {
 
     final TodoService todoService;
 
+
+
     @GetMapping("/todos")
     public List getTodos() {
         return todoService.getTodos();
@@ -51,5 +53,11 @@ public class TodoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createSubtask(@PathVariable UUID todoId, @RequestBody Subtask subtask) {
         todoService.createSubtask(todoId, subtask);
+    }
+
+    @PostMapping("/todos/{todoId}/notes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo createNote(@PathVariable UUID todoId, @RequestBody Note note) {
+        return todoService.createNote(todoId, note);
     }
 }

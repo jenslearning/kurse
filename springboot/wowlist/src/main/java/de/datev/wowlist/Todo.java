@@ -20,8 +20,11 @@ public class Todo {
     @Id
     private UUID id;
 
-    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL) // one todo can have multiple subtasks
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL) // one todo can have multiple subtasks, cascade = save not only the todo, but all the subtasks
     private List<Subtask> subtasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL)
+    private List<Note> notes = new ArrayList<>();
 
     public Todo(String description, boolean done) {
         this.description = description;
@@ -61,5 +64,26 @@ public class Todo {
     public void addSubtask(Subtask subtask) {
         this.subtasks.add(subtask);
         subtask.setTodo(this);
+    }
+
+    public void addNote(Note note) {
+        this.notes.add(note);
+        note.setTodo(this);
+    }
+
+    public List<Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(List<Subtask> subtasks) {
+        this.subtasks = subtasks;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
     }
 }
